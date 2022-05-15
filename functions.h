@@ -8,12 +8,11 @@ void time(float *t, float tn, float dt, int n) {
 
 }
 void Uvh(float *Uvh, float *t, int n){
-    float z = 250.0 / ((n*1.0) / 2.0 - 1.0);
-    for (int i = 1; i <= n; i++) {
-        if (t[i] < 0.0) {
+    float z = 250.0 / (n / 2.0);
+    for (int i = 1; i < n; i++) {
+        if (t[i] <= 0.0) {
             Uvh[i] = Uvh[i - 1] + z;
         } else { Uvh[i] = Uvh[i - 1] - z; };
-        printf("%5.3f\n", Uvh[i - 1]);
     }
 
 
@@ -22,7 +21,7 @@ void Uvh(float *Uvh, float *t, int n){
 void Uvih(int n, float *Uvh, float *Uvih){
     float U0 = 50, U1 = 100, a = 400;
     for(int i = 1; i<=n; i++){
-        if((0<=Uvh[i]) && ( Uvh[i] < U0)){
+        if((0.0<=Uvh[i]) && ( Uvh[i] < U0)){
             Uvih[i] = cbrtf(a*(Uvh[i] * Uvh[i]));
         }
         else(Uvih[i] = U1);
