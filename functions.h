@@ -8,13 +8,20 @@ void time(float *t, float tn, float dt, int n) {
 
 }
 void Uvh(float *Uvh, float *t, int n){
-    float z = 250.0 / (n / 2.0);
-    for (int i = 1; i < n; i++) {
-        if (t[i] <= 0.0) {
-            Uvh[i] = Uvh[i - 1] + z;
-        } else { Uvh[i] = Uvh[i - 1] - z; };
-    }
+    int o = n/2 ;
 
+    float z = 250.0 / (n / 2.0);
+    for (int i = 1; i <= o; i++) {
+        if(t[i] <= 0.0) {
+            Uvh[i] = Uvh[i - 1] + z;
+        }
+    }
+    int i = 0;
+    for(int j = n; j>o; j--){
+        Uvh[j] = Uvh[i];
+        i++;
+    }
+    //else { Uvh[i] = Uvh[i - 1] - z; };
 
 }
 
@@ -31,14 +38,14 @@ void Uvih(int n, float *Uvh, float *Uvih){
 float parametr(float *times, int n, float *U, int k){
     int y; int h = 0;
     for(y = n; y > (n/2); y--){
-        if(U[y]<=k){
+        if(U[y]<k){
             h++;
         }
         else{break;}
     }
     float b = times[n-h];
-    float j = times[h-1];
-    float time = (b - j +1);
+    float j = times[h];
+    float time = (b - j);
     return time;
 }
 
